@@ -446,7 +446,7 @@ fn setup_argument_parser() -> ArgumentParser<WasmArgs> {
                 None => (DEFAULT_MEMORY_IMPORT_MODULE, DEFAULT_MEMORY_IMPORT_NAME),
                 Some(value) => value
                     .split_once(',')
-                    // wasm-ld treats a comma-less value as the name, defaulting the module to `env`.
+                    // wasm-ld treats a comma-less value as the name, module defaults to `env`.
                     .unwrap_or((DEFAULT_MEMORY_IMPORT_MODULE, value)),
             };
             args.import_memory = Some((module.to_owned(), name.to_owned()));

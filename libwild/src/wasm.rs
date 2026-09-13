@@ -6070,7 +6070,7 @@ where
         // Input objects may export their own memory. We publish at most one, under our own name,
         // so inherited exports always go, whatever the flags.
         strip_memory_exports(&mut layout.exports);
-        // Memory is exported by default, --import-memory suppresses that unless --export-memory asks.
+        // Exported by default; --import-memory suppresses that unless --export-memory is passed.
         if import_memory.is_none() || export_memory.is_some() {
             push_memory_export(&mut layout.exports, symbol_db.args.memory_export_name());
         }
