@@ -864,18 +864,19 @@ impl WasmModuleInfo {
             .memory_imports
             .iter()
             .filter(|(module, name, _)| module == &exp.module && name == &exp.name)
-            .collect::<Vec<_>>();
-        ensure!(
-            matching.len() == 1,
-            "Expected exactly one memory import `{}/{}` in {linker_name} output ({}), \
-             found {} (all: {:?})",
-            exp.module,
-            exp.name,
-            self.path.display(),
-            matching.len(),
-            self.memory_imports
-        );
-        let (_, _, actual) = matching[0];
+            .exactly_one()
+            .map_err(|matching| {
+                error!(
+                    "Expected exactly one memory import `{}/{}` in {linker_name} output ({}), \
+                     found {} (all: {:?})",
+                    exp.module,
+                    exp.name,
+                    self.path.display(),
+                    matching.count(),
+                    self.memory_imports
+                )
+            })?;
+        let (_, _, actual) = matching;
         if let Some(shared) = exp.assertions.shared {
             ensure!(
                 actual.shared == shared,

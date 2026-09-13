@@ -30,4 +30,27 @@
 //#ExpectSection: Export
 //#ExpectSym: memory
 
+//#Config:exported-values
+//#LinkArgs: --import-memory=foo,bar --export-memory
+//#RunEnabled: false
+//#NoSection: Memory
+//#ExpectMemoryImport: foo/bar
+//#ExpectSection: Export
+//#ExpectSym: memory
+
+//#Config:input-memory-export
+//#Object:mem-export.wat
+//#LinkArgs: --import-memory
+//#RunEnabled: false
+//#NoSection: Memory
+//#ExpectMemoryImport: env/memory
+//#NoSym: from_input
+
+//#Config:import-name-only
+//#LinkArgs: --import-memory=mymem
+//#RunEnabled: false
+//#NoSection: Memory
+//#ExpectMemoryImport: env/mymem
+//#NoSym: memory
+
 void _start(void) {}
