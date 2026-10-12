@@ -6117,7 +6117,8 @@ struct DynamicExport<'data> {
 struct DynamicExports<'data> {
     /// Functions and globals.
     direct: Vec<DynamicExport<'data>>,
-    /// Data symbols. Like wasm-ld, each is exported as an immutable i32 global holding its address.
+    /// Data symbols. Like wasm-ld, each is exported as an immutable i32 global holding its
+    /// address.
     data: Vec<DynamicExport<'data>>,
     /// Like wasm-ld, the mutable `__stack_pointer` is only exported with `mutable-globals`.
     stack_pointer: bool,
