@@ -14,7 +14,6 @@
 //#NoSym: hidden_data
 
 //#AbstractConfig:exported:base
-//#ExpectSym: __stack_pointer
 //#ExpectSym: pub_func
 //#ExpectSym: weak_func
 //#ExpectSym: unreferenced_func
@@ -33,6 +32,13 @@
 
 //#Config:no-gc-sections:exported
 //#LinkArgs: --export-dynamic --no-gc-sections
+
+// With `mutable-globals`, the linker-defined `__stack_pointer` is exported too. wasm-ld only does
+// this since LLVM 22, so this is Wild-only.
+//#Config:stack-pointer:base
+//#LinkArgs: --export-dynamic
+//#ReferenceLinkers:
+//#ExpectSym: __stack_pointer
 
 // Without `mutable-globals`, wasm-ld doesn't export the linker-defined `__stack_pointer`.
 //#Config:mvp:base
